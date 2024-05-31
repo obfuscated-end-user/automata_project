@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Automata Simulator</title>
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h1>AUTOMATA SIMULATOR</h1>
+        <div class="container-dfa">
+            <div class="left">
+                <h2>Deterministic Finite Automata</h2>
+                <form class="grid" action="/generate_dfa" method="POST" enctype="multipart/form-data" onsubmit="return true">
+                    <div class="components">
+                        <label for="alphabet"><h3>Alphabet:</h3></label>
+                        Σ = <input type="text" id="alphabet" name="alphabet" value="{{ alphabet }}" readonly><br><br>
+                        <label for="regex">
+                            <h3>Regular expression:</h3>
+                            <div>
+                                <input type="radio" class="regex-radio-dfa" id="regex1-radio-dfa" name="regex-list-dfa" value="regex1-dfa" onchange="changeRegexDFA()" checked/>
+                                <label for="regex1-radio-dfa" id="regex1-radio-label-dfa">(bab + bbb)a*b*(a* + b*)(ba)*(aba)(bab + aba)*bb(a + b)*(bab + aba)(a + b)*</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="regex-radio-dfa" id="regex2-radio-dfa" name="regex-list-dfa" value="regex2-dfa" onchange="changeRegexDFA()"/>
+                                <label for="regex2-radio-dfa" id="regex2-radio-label-dfa">(1 + 0)*1*0*(101 + 01 + 000)(1 + 0)*(101 + 00)*(111 + 00 + 101)(1 + 0)*</label>
+                            </div>
+                        </label><br><br>
+
+                        <input type="text" id="regex" name="regex" value="{{ regex }}" readonly><br><br>
+                        <button id="generate-dfa-btn" type="Submit" onclick="generateDFA()">
+                            <span class="mode-text">Generate DFA</span>
+                        </button>
+                    </div>
+                </form>
+                {% if exception %}
+                    <p style="color:red;">{{ exception }}</p>
+                {% endif %}
+            </div>
+            <div class="right">
+                <h2>DFA Results</h2>
+                <form class="grid" action="/track_regex_dfa" method="POST" enctype="multipart/form-data" onsubmit="return true">
+                    <div class="components">
+                        <label for="dfa_string"><h3>Test string:</h3></label>
+                        <input type="text" id="dfa_string" name="dfa_string">
+                        <input hidden name="alphabet" value="{{ alphabet }}"> <!-- do not unhide-->
+                        <input hidden name="regex" value="{{ regex }}"><br><br>
+                        <button id="accept-str-dfa-btn" type="Submit">
+                            <span class="mode-text">Simulate</span>
+                        </button>
+                    </div>
+                </form>
+                {% if alphabet %}
+                    {% if regex %}
+                        <h3>Σ = { {{ alphabet }} }<br>RE: {{ regex }}</h3>
+                        {% if dfa_string %}
+                            <h3>"{{ dfa_string }}",
+                                {% if accept == true %}
+                                    <span style="color:lime">valid</span>
+                                {% else %}
+                                    <span style="color:red">invalid</span>
+                                {% endif %}
+                            </h3>
+                        {% endif %}
+                        <div class="image"><img src="{{ path }}"></div><br>
+                        <button onclick="location.href='{{ path }}'" type="button">View full image</button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="container-pda">
+            <div class="left">
+                <h2>Context-Free Grammar</h2>
+                    <div>
+                        <input type="radio" class="regex-radio-cfg" id="regex1-radio-cfg" name="regex-list-cfg" value="regex1-cfg" checked/>
+                        <label for="regex1-radio-cfg" id="regex1-radio-label-cfg">(bab + bbb)a*b*(a* + b*)(ba)*(aba)(bab + aba)*bb(a + b)*(bab + aba)(a + b)*</label>
+                    </div>
+                    <div>
+                        <input type="radio" class="regex-radio-cfg" id="regex2-radio-cfg" name="regex-list-cfg" value="regex2-cfg"/>
+                        <label for="regex2-radio-cfg" id="regex2-radio-label-cfg">(1 + 0)*1*0*(101 + 01 + 000)(1 + 0)*(101 + 00)*(111 + 00 + 101)(1 + 0)*</label>
+                    </div><br><br>
+
+                <button onclick="changeCFG()">Generate CFG</button><br><br>
+
+                <div class="image" id="regex1-cfg-div" style="display:block;">
+                    S → A B C D E F G H I J K<br>
+                    A → babB ∣ bbbB<br>
+                    B → aB | Λ<br>
+                    C → bC | Λ<br>
+                    D → X | Y<br>
+                    X → aX | Λ<br>
+                    Y → bY | Λ<br>
+                    E → baE | Λ<br>
+                    F → aba<br>
+                    G → babG ∣ abaG | Λ<br>
+                    H → bb<br>
+                    I → aI ∣ bI | Λ<br>
+                    J → bab | aba<br>
+                    K → a ∣ b | Λ
+                </div>
+                <div class="image" id="regex2-cfg-div" style="display:none;">
+                    S → A B C D E F G H<br>
+                    A → 1A | 0A | Λ<br>
+                    B → 1B | Λ<br>
+                    C → 0C | Λ<br>
+                    D → 101 | 01 | 000<br>
+                    E → 1E | 0E | Λ<br>
+                    F → 101F | 00F | Λ<br>
+                    G → 111 | 00 | 101<br>
+                    H → 1 | 0 | Λ
+                </div>
+
+            </div>
+            <div class="right">
+                <h2>Pushdown Automata</h2>
+                    <div>
+                        <input type="radio" class="regex-radio-pda" id="regex1-radio-pda" name="regex-list-pda" value="regex1-pda" checked/>
+                        <label for="regex1-radio-pda" id="regex1-radio-label-pda">(bab + bbb)a*b*(a* + b*)(ba)*(aba)(bab + aba)*bb(a + b)*(bab + aba)(a + b)*</label>
+                    </div>
+                    <div>
+                        <input type="radio" class="regex-radio-pda" id="regex2-radio-pda" name="regex-list-pda" value="regex2-pda"/>
+                        <label for="regex2-radio-pda" id="regex2-radio-label-pda">(1 + 0)*1*0*(101 + 01 + 000)(1 + 0)*(101 + 00)*(111 + 00 + 101)(1 + 0)*</label>
+                    </div><br><br>
+
+                <button onclick="changePDA()">Generate PDA</button><br><br>
+
+                <div class="image" id="regex1-pda-img" style="display:block;">
+                    <img src="{{ regex1_pda }}" title="PDA 1"><br><br>
+                    <button onclick="location.href='{{ regex1_pda }}'" type="button">View full image</button>
+                </div>
+                <div class="image" id="regex2-pda-img" style="display:none;">
+                    <img src="{{ regex2_pda }}" title="PDA 2"><br><br>
+                    <button onclick="location.href='{{ regex2_pda }}'" type="button">View full image</button>
+                </div>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+</html>

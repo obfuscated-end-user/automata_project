@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Nunito Sans', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #03312E; /* Dark green background */
+    color: #003d2b; /* Light green text */
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #003d2b; /* Light green headers */
+    font-family: 'Nunito Sans', sans-serif; /* Nunito Sans font */
+    letter-spacing: 0.05em; /* Expanded style */
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 2.5em;
+    color: white; /* Dark green text */
+    padding: 10px; /* Adding padding for better spacing */
+    border-radius: 8px; /* Optional: to match the design style */
+}
+
+h2 {
+    margin-top: 10px;
+    font-size: 2em;
+}
+
+h3 {
+    text-align: left;
+    margin-top: 10px;
+    font-size: 1.5em;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+table td {
+    padding: 10px;
+    color: #a8e3b7; /* Light green table text */
+}
+
+.container-dfa {
+    display: flex;
+    justify-content: space-between;
+    padding: 100px;
+    padding-top: 40px;
+    padding-bottom: 25px;
+    gap: 50px; /* Add gap between the two sections */
+    background-color: #03312E; /* Dark green text */
+    border-radius: 8px; /* Optional: to match the design style */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.left, .right {
+    width: 48%;
+    padding: 20px;
+    background-color: #FFFFFF; /* White background for left and right sections */
+    color: #003d2b; /* Dark green text for left and right sections */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label h3 {
+    margin: 0 0 10px 0;
+    color: #003d2b; /* Light green label text */
+}
+
+input[type="text"], textarea {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #028a5e; /* Border color for inputs */
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #016A4A; /* Dark green background for inputs */
+    color: #a8e3b7; /* Light green text for inputs */
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+#alphabet {
+    width: 90%;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #FFFFFF; /* White text for button */
+    background-color: #028A5E; /* Medium green button background */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #035E3B; /* Darker green button hover background */
+}
+
+ul {
+    list-style-type: disc;
+    margin: 10px 0 10px 20px;
+    color: #a8e3b7; /* Light green list text */
+}
+
+li {
+    margin: 5px 0;
+}
+
+.code {
+    font-family: "Lucida Console", "Courier New", monospace;
+    background-color: #014737; /* Medium dark green code background */
+    border: 1px solid #028a5e; /* Border color for code */
+    border-radius: 4px;
+    padding: 5px;
+    display: inline-block;
+    color: #a8e3b7; /* Light green code text */
+}
+
+.image {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    max-width: 100%;
+    /* overflow-x: auto; */
+    /* overflow-y: auto; */
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #028a5e; /* Border color for images */
+    border-radius: 8px;
+    /* overflow-x: auto; */
+    /* overflow-y: scroll; */
+}
+
+.components {
+    margin-top: 20px;
+}
+
+#results {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #014737; /* Medium dark green results background */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#results h3 {
+    margin: 10px 0;
+    color: #a8e3b7; /* Light green results text */
+}
+
+#results span {
+    font-weight: bold;
+}
+
+.container-pda {
+    display: flex;
+    justify-content: space-between;
+    padding: 100px;
+    padding-top: 25px;
+    gap: 50px; /* Add gap between the two sections */
+    background-color: #03312E; /* Dark green text */
+    border-radius: 8px; /* Optional: to match the design style */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#regex1-cfg-div, #regex2-cfg-div {
+    text-align: left;
+    font-size: 1.5em;
+}
